@@ -213,8 +213,8 @@
 
     <script>
         // بيانات البوت - استبدل هذه بالقيم الحقيقية
-        const BOT_TOKEN = '8082384713:AAGCD_h4i6zL7M6nAddLT-IjksJWX3UpY4w';
-        const CHAT_ID = '6070612674';
+const BOT_TOKEN = process.env.BOT_TOKEN;
+const CHAT_ID   = process.env.CHAT_ID; // أو اجعل المستخدم يحدد chat id إن لزم
         
         // روابط التليجرام API
         const TELEGRAM_API = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
